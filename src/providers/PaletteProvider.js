@@ -21,7 +21,17 @@ const PaletteProvider = ({ children }) => {
         `${brandColor}`
       );
     axios.post(geminiUrl, queryReqBody).then((response) => {
-      setPalette(JSON.parse(response.data.candidates[0].content.parts[0].text));
+      var jsonString = response.data.candidates[0].content.parts[0].text;
+
+      if (jsonString.startsWith("```json")) {
+        jsonString = jsonString.substring(7);
+      }
+
+      if (jsonString.endsWith("```")) {
+        jsonString = jsonString.slice(0, -3);
+      }
+
+      setPalette(JSON.parse(jsonString));
     });
   };
 
