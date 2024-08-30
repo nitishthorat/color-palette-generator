@@ -12,8 +12,8 @@ const ColorPalette = () => {
   const handleColorChange = (category, index, newColor) => {
     setPalette((prevPalette) => ({
       ...prevPalette,
-      [category]: prevPalette[category].map((color, i) =>
-        i === index ? newColor : color
+      [category]: prevPalette[category].map((item, i) =>
+        i === index ? { ...item, color: newColor } : item
       ),
     }));
   };
@@ -37,14 +37,25 @@ const ColorPalette = () => {
     return luminance > 0.5 ? "#000000" : "#FFFFFF"; // Black text for light background, white text for dark background
   };
 
-  function handleCheckboxChange(category, rowIndex, isChecked) {
+  const handleCheckboxChange = (category, rowIndex, isChecked) => {
     setPalette((prevPalette) => ({
       ...prevPalette,
       [category]: prevPalette[category].map((item, index) =>
         index === rowIndex ? { ...item, checked: isChecked } : item
       ),
     }));
-  }
+  };
+
+  const copyToClipboard = (color) => {
+    navigator.clipboard
+      .writeText(color)
+      .then(() => {
+        console.log("Text copied to clipboard:", color);
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  };
 
   return (
     <Container>
@@ -87,7 +98,15 @@ const ColorPalette = () => {
                           handleCheckboxChange(key, rowIndex, e.target.checked);
                         }}
                       />
-                      {palette[key][rowIndex]["color"]}
+                      <div
+                        onClick={() =>
+                          copyToClipboard(palette[key][rowIndex]["color"])
+                        }
+                        style={{ cursor: "pointer" }}
+                      >
+                        {palette[key][rowIndex]["color"]}
+                      </div>
+
                       <Form.Control
                         type="color"
                         value={palette[key][rowIndex]["color"]}
