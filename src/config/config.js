@@ -10,4 +10,5 @@ export const config = {
       },
     ],
   },
+  paletteKeys: ["brand", "success", "error", "warning", "neutral"],
 };

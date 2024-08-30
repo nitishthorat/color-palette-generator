@@ -12,6 +12,13 @@ const PaletteProvider = ({ children }) => {
     "?key=" +
     process.env.REACT_APP_GEMINI_KEY;
 
+  const transformPalette = (palette) => {
+    return Object.keys(palette).reduce((acc, key) => {
+      acc[key] = palette[key].map((color) => ({ checked: false, color }));
+      return acc;
+    }, {});
+  };
+
   const getPalette = (brandColor) => {
     const queryReqBody = _.cloneDeep(config.queryReqBody);
 
@@ -31,7 +38,7 @@ const PaletteProvider = ({ children }) => {
         jsonString = jsonString.slice(0, -3);
       }
 
-      setPalette(JSON.parse(jsonString));
+      setPalette(transformPalette(JSON.parse(jsonString)));
     });
   };
 
