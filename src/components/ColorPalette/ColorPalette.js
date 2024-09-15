@@ -58,9 +58,8 @@ const ColorPalette = () => {
   };
 
   return (
-    <Container>
+    <Container className="color-palette-container">
       <h3>Color Palette</h3>
-
       {palette ? (
         <Table>
           <thead>

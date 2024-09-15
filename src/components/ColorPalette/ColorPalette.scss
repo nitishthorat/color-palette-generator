@@ -1,9 +1,18 @@
-.palette-cell {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  input {
-    padding: 0px;
+.color-palette-container {
+  padding: 15px;
+  width: 100%;
+
+  h3 {
+    margin-bottom: 15px;
+  }
+
+  .palette-cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    input {
+      padding: 0px;
+    }
   }
 }
